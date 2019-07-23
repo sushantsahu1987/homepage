@@ -18,9 +18,11 @@ steps:
   inputs:
     SonarCloud: 'sonarcloud'
     organization: 'sushantsahu1987'
-    scannerMode: 'MSBuild'
-    projectKey: 'sushantsahu1987_homepage'
-    projectName: 'homepage'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'sushantsahu1987_homepage'
+    cliProjectName: 'homepage'
+    cliSources: './my-app'
 - script: |
     cd my-app
     npm install
