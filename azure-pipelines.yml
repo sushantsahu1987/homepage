@@ -32,13 +32,24 @@ steps:
 - task: WhiteSource Bolt@19
   inputs:
     cwd: './my-app'
+
+## Copy the client to the staging directory
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: |
-      **\*.js
-      package.json
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/my-app/build/' 
+    contents: '*' 
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    cleanTargetFolder: true
+
+## Archive the files into a zip file for publishing
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    includeRootFolder: false
+
+## Publish the zip file
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
