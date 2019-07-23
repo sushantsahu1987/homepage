@@ -14,9 +14,16 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'sushantsahu1987'
+    scannerMode: 'MSBuild'
+    projectKey: 'sushantsahu1987_homepage'
+    projectName: 'homepage'
 - script: |
     cd my-app
     npm install
     npm run build
+- task: SonarCloudAnalyze@1
   displayName: 'npm install and build'
