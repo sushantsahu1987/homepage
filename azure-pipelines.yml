@@ -24,7 +24,7 @@ steps:
     cliProjectName: 'homepage'
     cliSources: './my-app'
 - script: |
-    cd my-app
+    cwd my-app
     npm install
     npm run build
   displayName: 'npm install and build'
@@ -32,8 +32,13 @@ steps:
 - task: WhiteSource Bolt@19
   inputs:
     cwd: './my-app'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      **\*.js
+      package.json
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'homepage'
-    publishLocation: 'Container'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
