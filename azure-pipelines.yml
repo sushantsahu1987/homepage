@@ -29,3 +29,6 @@ steps:
     npm run build
   displayName: 'npm install and build'
 - task: SonarCloudAnalyze@1
+- task: WhiteSource Bolt@19
+  inputs:
+    cwd: './my-app'
