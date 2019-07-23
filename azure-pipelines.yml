@@ -24,7 +24,7 @@ steps:
     cliProjectName: 'homepage'
     cliSources: './my-app'
 - script: |
-    cwd my-app
+    cd my-app
     npm install
     npm run build
   displayName: 'npm install and build'
